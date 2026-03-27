@@ -1,12 +1,12 @@
 ### VALUES YOU SHOULD CHANGE ###
 
 # GENERAL SITE SETTINGS
-title: Ozan Kiratli, PhD | Bioinformatician 
-description: Personal website powered by Jekyll
+title: Ozan L. Z. Kiratli, PhD | Bioinformatician 
+description: OLZK's Personal website
 baseurl: ""
 
 # LANDING PAGE
-username: Ozan Kiratli, PhD
+username: Ozan Linus Zephyr Kiratli, PhD
 typing_text: Bioinformatician
 email: ozankiratli@protonmail.com
 github_username: ozankiratli
@@ -45,13 +45,25 @@ contact_description: Feel free to contact me.
 repository: ozankiratli/ozankiratli.github.io
 projects:
   # sortby: pushed, stars 
-  sort_by: stars
+  sort_by: stars, pushed
   exclude:
     archived: true
     forks: true
     projects:
+     - blog
+     - hyde
+     - neumorphism
+     - poolseq-resources
      - ozankiratli.github.io
      - dotfiles
+     - old-website
+     - DNA-Alignment-Pipeline
+     - i3config
+     - stemlive.github.io
+     - PiHole-BlockLists
+     - host-file.net-backup
+     - List-of-US-States
+     - CoronavirusGraphs_Fits
      - swayconfig
      - Template-Project
      - PiHole-BlockLists
