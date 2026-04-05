@@ -48,7 +48,7 @@ projects:
   sort_by: stars, pushed
   exclude:
     archived: true
-    forks: true
+    forks: false
     projects:
      - blog
      - hyde
