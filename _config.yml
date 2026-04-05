@@ -71,11 +71,6 @@ projects:
      - tuxisalive
      - Resume_CSS
 
-
-# GOOGLE-ANALYTICS
-google-analytics:
-  id: ""
-
 ### END OF VALUES YOU SHOULD CHANGE ###
 
 plugins:
