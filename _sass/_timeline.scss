@@ -1,5 +1,62 @@
 /* Timeline Section */
 
+#timeline {
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  #filter-education:checked ~ .timeline-filter label[for="filter-education"],
+  #filter-experience:checked ~ .timeline-filter label[for="filter-experience"] {
+    @include neumorphism-button-pressed();
+  }
+
+  #filter-education:checked ~ #filter-experience:not(:checked) ~ .timeline-wrapper .timeline-entry-right {
+    display: none;
+  }
+
+  #filter-education:not(:checked) ~ #filter-experience:checked ~ .timeline-wrapper .timeline-entry-left {
+    display: none;
+  }
+}
+
+.timeline-filter {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  .filter-button {
+    font-family: $font-family-h1;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    margin: 0 0.25rem 1rem;
+    padding: 0.25rem 0.5rem;
+    text-align: center;
+    width: 40%;
+    transition: 0.75s;
+
+    &:hover {
+      letter-spacing: 0.15rem;
+    }
+  }
+
+  label[for="filter-education"] {
+    color: $education-color;
+  }
+
+  label[for="filter-experience"] {
+    color: $experience-color;
+  }
+}
+
+.timeline-entry-left .flag a {
+  color: $education-color;
+}
+
+.timeline-entry-right .flag a {
+  color: $experience-color;
+}
+
 .timeline-wrapper {
   .timeline {
     list-style-type: none;
