@@ -8,3 +8,7 @@ node_modules
 .jekyll-metadata
 Gemfile.lock
 Archive/
+
+# Local bundler install (bundle install --path vendor/bundle)
+vendor/
+.bundle/

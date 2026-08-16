@@ -5,7 +5,70 @@
     margin: 0.5rem 0;
     padding: 0.25rem 1rem;
   }
-  
+
+
+.project-featured .name-link-wrapper h3 {
+  color: $project-featured-color;
+}
+
+/* The name is the repo link. `color: inherit` is load-bearing: the global
+   `a { color: $accent-color }` would otherwise turn every title blue and
+   override the featured colour above. */
+.project-name {
+  align-items: center;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.project-name a {
+  color: inherit;
+
+  &:hover,
+  &:focus-visible {
+    color: inherit;
+    text-decoration: underline;
+  }
+}
+
+/* inline-flex removes the descender gap under an inline SVG */
+.project-site-link {
+  align-items: center;
+  display: inline-flex;
+
+  &:hover .project-site-icon,
+  &:focus-visible .project-site-icon {
+    opacity: 1;
+  }
+}
+
+/* Wireframe globe: the strokes carry the colour and the body stays transparent,
+   so `fill: none` is required - a stroked icon with a fill would paint the disc
+   solid again. currentColor keeps it matched to its own title, so featured
+   cards get the featured colour for free. */
+.project-site-icon {
+  fill: none;
+  height: 0.95em;
+  opacity: 0.8;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+  width: 0.95em;
+}
+
+/* Stars and forks are coloured by kind, not by card, so featured cards get the
+   same yellow/white as everything else - only the title marks them out.
+   Deliberately single-class so no `.project-featured` rule can outrank them.
+   `fill` only: it paints the SVG icon and leaves the count in the normal
+   text colour. */
+.project-stars {
+  fill: $project-stars-color;
+}
+
+.project-forks {
+  fill: $project-forks-color;
+}
+
 .project .name-link-wrapper {
   display: flex;
   justify-content: space-between;
@@ -22,11 +85,12 @@
   font-size: medium;
 }
   
+/* No `fill` here: every link also carries .project-stars or .project-forks,
+   which set it. Declaring it here would win on source order and undo them. */
 .project-stars-forks {
-  fill: $text-color;
   font-family: $font-family-numbers;
 }
-  
+
 .tag-wrapper {
   margin: 1rem 0 0 0;
   font-size: small;
@@ -58,7 +122,8 @@
     margin: 0.3rem 0;
     padding: 0.25rem 0.4rem;
   }
-  
+
+
 .project .name-link-wrapper {
   display: flex;
   justify-content: space-between;
@@ -76,10 +141,9 @@
 }
   
 .project-stars-forks {
-  fill: $text-color;
   font-family: $font-family-numbers;
 }
-  
+
 .tag-wrapper {
   margin: 0.4rem 0 0 0;
   font-size: smaller;

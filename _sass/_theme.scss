@@ -21,6 +21,8 @@ $black: #000;
 $black-transparent: rgba(0, 0, 0, 0.5);
 $lesswhite: #eaeaea;
 $lesserwhite: #aeaeae;
+$white: #fff;
+$star-yellow: #ffd166;
 
 
 $text-color: $lesswhite !default;
@@ -120,8 +122,18 @@ $neumorphism-card-box-shadow:
     inset -0.5px -0.5px 1px $card-shadow-light;
 
 $neumorphism-card-big-box-shadow:
-    1px 1px 0.75px $card-big-shadow-dark, 
+    1px 1px 0.75px $card-big-shadow-dark,
     -1px -1px 0.75px $card-big-shadow-light;
+
+/* Featured project cards are marked by colouring the title and the star/fork
+   counts, not by a background tint - a tint light enough to sit under body text
+   is too weak to read against the section's own dark gradient. */
+$project-featured-color: $greenblue;
+
+/* Star and fork counts read the same on every card, featured or not. */
+$project-stars-color: $star-yellow;
+$project-forks-color: $lesswhite;
+
 
 
 

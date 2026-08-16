@@ -81,9 +81,15 @@
   * Set this to your forked repository
   * e.g. `<user>/<user>.github.io`
 * `projects`:
-  * `sortby`:
-    * set this to **pushed**, if you want to sort your github repositories by time.
-    * set this to **stars**, if you want to sort your github repositories by stars.
+  * `sort_by`: sorting for the non-featured repositories. Takes **one** value, not a list.
+    * set this to **stars**, to sort by stars first, with the most recent push breaking ties.
+    * set this to **pushed**, to sort by last push first, with stars breaking ties.
+    * any other value behaves as **pushed**. Note a list such as `stars, pushed` is read as the single string `"stars, pushed"`, matches neither, and silently falls back to **pushed**.
+  * `featured`: a list of repository names to pin above the rest, rendered in exactly the order given.
+    * these are looked up in the *full* repository list, so a featured repository still shows even if it is a fork or archived — `exclude.archived` and `exclude.forks` do **not** hide it.
+    * featured repositories are removed from the main list, so they never appear twice.
+    * they are marked visually by title color, not a separate heading.
+    * omit the key or leave the list empty to disable the feature entirely.
   * `exclude`:
     * `archived`:
       * setting this to **true**, will exclude archived repositories
@@ -95,4 +101,4 @@
 
 ## Google Analytics
 
-* `id`: Set the id, if you want to track your website with Google Analytics
+Removed from this fork. The `id` key is no longer read and there is no tracking code in the layouts.

@@ -44,11 +44,20 @@ contact_description: Feel free to contact me.
 # GITHUB-METADATA
 repository: ozankiratli/ozankiratli.github.io
 projects:
-  # sortby: pushed, stars 
-  sort_by: stars, pushed
+  # Sorting for the non-featured list. One value only:
+  #   stars  -> most stars first, most recently pushed breaks ties
+  #   pushed -> most recently pushed first, most stars breaks ties
+  sort_by: stars
+  # Hand-picked repositories, rendered first and with a tinted card background.
+  # These always show, even if they are forks or archived.
+  featured:
+    - PoolSeqFlow
+    - NGS-Pipeline
+    - FilteringFalsePositives
+    - kodi-fcast-receiver
   exclude:
     archived: true
-    forks: true
+    forks: false
     projects:
      - blog
      - hyde
@@ -56,7 +65,7 @@ projects:
      - poolseq-resources
      - ozankiratli.github.io
      - dotfiles
-     - old-website
+     - old_website
      - DNA-Alignment-Pipeline
      - i3config
      - stemlive.github.io
@@ -70,6 +79,7 @@ projects:
      - NordVPNonOVPN
      - tuxisalive
      - Resume_CSS
+     - haploid-bottleneck
 
 ### END OF VALUES YOU SHOULD CHANGE ###
 

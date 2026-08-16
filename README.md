@@ -12,6 +12,7 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage)
+  * [Running Locally Without Docker](#running-locally-without-docker)
   * [Personalize and Customize](#personalize-and-customize)
     * [_config.yml](#_configyml)
     * [Github Metadata Plugin](#github-metadata-plugin)
@@ -40,14 +41,19 @@ This is a fork of [Neumorphism](https://github.com/longpdo/neumorphism/) built w
 * [Animations On Scroll](https://michalsnik.github.io/aos/)
 * Filterable *Skills* word cloud
 * [Github's API](https://developer.github.com/v3/) automatically populating the *Open Source Projects* section
+* Hand-picked *featured* repositories pinned above the rest, with the remainder sorted by stars and last push
 * Gulp dev workflow with [BrowserSync](https://browsersync.io/), [Autoprefixer](https://autoprefixer.github.io/) and `JS` & `SCSS` minifying.
-* [Google Analytics](https://analytics.google.com/)
 
 #### Additions to the original design
 * The arrow addition is from [Will Green](https://github.com/wlg0005/wlg0005.github.io).
 * Color-coded buttons on the "Skills" section.
 * Single-piece hexagram design for better rendering on different devices.
 * Easier and fully customizable color scheme.
+* Featured repositories, listed in `_config.yml`, pinned to the top of the *Github Projects* grid and marked by title color. They are looked up in the full repository list, so a featured pick still shows even if it is a fork or archived.
+* Non-featured repositories sorted by two keys — stars first, last push as the tiebreak (or the reverse, see `sort_by`).
+* Project cards link from the repository name itself, with a wireframe globe icon next to it for repositories that have a homepage set. This replaces the old "Github" and "Website" text links.
+* Star and fork counts color-coded by kind — yellow stars, white forks — on every card.
+* Google Analytics removed.
 
 <!-- GETTING STARTED -->
 
@@ -129,6 +135,21 @@ docker run --rm --volume="${PWD}:/srv" -p 4000:4000 --name {NEW_CONTAINER_NAME} 
 * After committing and pushing, see your repository's `Settings` page to see where your site is published via `Github Pages`.
 * This version also has the Github actions enabled.
 
+### Running Locally Without Docker
+
+```sh
+yarn install          # or: npm install
+bundle install
+npm run dev           # gulp: compiles SCSS + JS, builds Jekyll, serves on :4000 with watch
+```
+
+> **Use `npm run dev`, not `bundle exec jekyll serve`.** The stylesheet is compiled by **gulp**, not Jekyll: `_sass/*.scss` is built into `assets/css/main.min.css`, which is a committed artifact that Jekyll only copies. Running Jekyll on its own serves the last committed CSS, so edits under `_sass/` appear to do nothing.
+
+Two related traps worth knowing when working on styles:
+
+* If a SCSS change does not show up, check the gulp output before suspecting the CSS. `gulp-sass` logs a compile error and **keeps watching**, but does not rewrite `main.min.css` — so a typo silently leaves the previous stylesheet in place.
+* `gulpfile.js` globs `_sass/*.scss` and renames every compiled file to `main.min.css`, so they overwrite each other. It works only because `_`-prefixed partials sort before `main.scss`, which imports them all and is therefore written last. Adding a non-underscore `.scss` file that sorts after `main.scss` would clobber the entire stylesheet.
+
 ### Personalize and Customize
 
 #### _config.yml
@@ -139,16 +160,29 @@ Edit `_config.yml` to personalize your site. For documentation, refer to `docs/c
 
 If you want your Github repositories automatically pulled for the Open Source Projects section, you also need to authenticate yourself for the Github Metadata plugin to work.
 
-You need to generate a new personal access token on GitHub:
+Authentication is optional but strongly recommended: without a token you get 60 API requests per hour per IP, which a couple of local builds will exhaust. The Github Projects section then renders **empty** with only a warning in the build log. With a token the limit is 5000/hour.
 
-* Go to the [Github Token site](https://github.com/settings/tokens/new)
-* Select the scope `public_repository`, and add a description.
-* Confirm and save the settings. Copy the token you see on the page.
-* Create a `.env` file inside your repository and add your generated `JEKYLL_GITHUB_TOKEN`:
+Generate a personal access token on GitHub:
+
+* Go to [fine-grained tokens](https://github.com/settings/personal-access-tokens) and click *Generate new token*
+* Set *Resource owner* to your account and *Repository access* to **Public repositories (read-only)**
+* No extra permissions are needed — the token only reads public data you already publish
+* Confirm and save the settings. Copy the token you see on the page (it is shown once)
+* Copy `.env.example` to `.env` and add your generated `JEKYLL_GITHUB_TOKEN`:
+
+```sh
+cp .env.example .env
+```
 
 ```text
 JEKYLL_GITHUB_TOKEN=0YOUR0GENERATED0TOKEN0
 ```
+
+`.env` is gitignored, so the token is never committed. It is loaded by `_plugins/dotenv.rb`; in CI there is no `.env` and the token comes from the workflow environment instead.
+
+> **Leave the line out entirely rather than blank.** An empty `JEKYLL_GITHUB_TOKEN=` is worse than no token: the plugin treats the variable as set, sends an empty credential, and the build fails with `401 Bad credentials` instead of falling back to unauthenticated requests. `_plugins/dotenv.rb` strips blank values to guard against this.
+
+A [classic token](https://github.com/settings/tokens/new) with no scopes ticked also works for public repositories, but fine-grained is the better default.
 
 To complete the configuration for the Github Metadata plugin, you also need to change the value of `repository` inside `_config.yml`. After this, you should ensure the GitHub Metadata plugin works properly.
 
