@@ -48,6 +48,18 @@
       {% endif %}
     </div>
   </div>
+  {%- comment -%}
+    Latest published release, supplied by _plugins/github_releases.rb. Most
+    repositories have never cut one, so the whole line is dropped rather than
+    standing in with a placeholder. The tag is printed exactly as it was
+    published - `1.0` and `v1.0.0` both appear as tagged, so the card stays a
+    faithful mirror of Github.
+  {%- endcomment -%}
+  {%- assign release = site.data.github_releases[repository.name] -%}
+  {% if release %}
+    <a class="project-version" href="{{ release.url }}" target="_blank" rel="noreferrer"
+      title="{{ repository.name }} {{ release.tag }} release notes">{{ release.tag }}</a>
+  {% endif %}
   <p class="project-desc">{{ repository.description }}</p>
   {% if repository.topics %}
     <div class="tag-wrapper">

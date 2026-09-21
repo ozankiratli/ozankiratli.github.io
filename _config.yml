@@ -53,7 +53,7 @@ projects:
   featured:
     - PoolSeqFlow
     - NGS-Pipeline
-    - FilteringFalsePositives
+    - PAPvault
     - kodi-fcast-receiver
   exclude:
     archived: true

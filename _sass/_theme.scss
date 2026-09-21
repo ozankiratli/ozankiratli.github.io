@@ -134,6 +134,11 @@ $project-featured-color: $greenblue;
 $project-stars-color: $star-yellow;
 $project-forks-color: $lesswhite;
 
+/* The release version is secondary to both the title and the description, so
+   it sits a step dimmer than body text ($lesswhite) rather than at a colour of
+   its own. Like the star and fork counts, it does not take the featured tint. */
+$project-version-color: $lesserwhite;
+
 
 
 

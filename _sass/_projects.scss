@@ -17,7 +17,8 @@
 .project-name {
   align-items: center;
   display: flex;
-  gap: 0.4rem;
+  gap: 0.6rem;
+  margin: 0.5rem 0 0 0;
 }
 
 .project-name a {
@@ -26,6 +27,27 @@
   &:hover,
   &:focus-visible {
     color: inherit;
+    text-decoration: underline;
+  }
+}
+
+/* Latest published release, on its own line under the title.
+   `display: block` is load-bearing: this is an anchor, so without it the
+   version would run into the description instead of sitting above it.
+   The explicit colour - repeated on hover - is needed for the same reason it is
+   on .project-name a: the global `a { color: $accent-color }` would otherwise
+   paint it blue. Monospace matches the star and fork counts, the card's other
+   numeric text. */
+.project-version {
+  color: $project-version-color;
+  display: block;
+  font-family: $font-family-numbers;
+  font-size: small;
+  margin: 0 0 0.35rem;
+
+  &:hover,
+  &:focus-visible {
+    color: $project-version-color;
     text-decoration: underline;
   }
 }
@@ -135,11 +157,16 @@
   margin: 0.3rem 0.3rem;
 }
   
+.project-version {
+  font-size: smaller;
+  margin: 0 0 0.25rem;
+}
+
 .project-desc {
   line-height: 1.2rem;
   font-size: small;
 }
-  
+
 .project-stars-forks {
   font-family: $font-family-numbers;
 }
