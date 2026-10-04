@@ -11,6 +11,16 @@ on:
   push:
     branches: ["master"]
 
+  # Rebuilds nightly so the release versions on the project cards do not go
+  # stale between pushes. _plugins/github_releases.rb reads them from the
+  # Github API at build time, so a project released after the last push would
+  # otherwise keep advertising its previous version indefinitely.
+  #
+  # Note that Github disables scheduled workflows after 60 days with no
+  # repository activity. It emails first, and any push re-enables this.
+  schedule:
+    - cron: "17 5 * * *"
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
