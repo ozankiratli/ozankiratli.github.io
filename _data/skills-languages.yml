@@ -17,7 +17,7 @@
 - name: Bash
   weight: 4
 
-- name: MySQL
+- name: SQL
   weight: 2
 
 - name: AWK
@@ -32,3 +32,5 @@
 - name: HTML
   weight: 1
 
+- name: PostgreSQL
+  weight: 1
